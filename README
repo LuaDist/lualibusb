@@ -1,0 +1,142 @@
+Lua-libusb Binding.
+
+
+Authors
+=======
+
+Jorge Visca <xxopxe@gmail.com>
+Andres Aguirre <aguirrea@gmail.com>
+
+Copyright 2008 MINA Group, Facultad de Ingenieria, Universidad de la
+Republica, Uruguay.
+
+See LICENSE
+
+	
+Intro
+=====
+
+For sample usage, see test.lua	
+Tested on Linux, with libusb 0.1.12
+
+
+Functions
+==========
+
+The following correspond to functions in libusb.h . For reference, 
+see http://libusb.sourceforge.net/doc/functions.html
+ 
+find_busses()
+	Returns a number
+ 
+find_devices(bus)
+	Returns a number
+	 
+get_busses()
+	Returns a dirname->bus_handler map
+
+get_devices(bus_handler)
+	Returns a filename->device map
+
+open(device)
+	Returns a dev_handle
+
+close(dev_handle)
+	Returns true if success. In case of failure returns nil followed by error code.
+	
+set_configuration(dev_handle, configuration)
+	configuration is a number
+	Returns true if success. In case of failure returns nil followed by error code.
+
+set_altinterface(dev_handle, alternative)
+	configuration is a number
+	Returns true if success. In case of failure returns nil followed by error code.
+	
+clear_halt(dev_handle, ep)
+	ep is a number
+	Returns true if success. In case of failure returns nil followed by error code.
+
+reset(dev_handle)
+	Returns true if success. In case of failure returns nil followed by error code.
+
+claim_interface(dev_handle, interface)
+	interface is a number
+	Returns true if success. In case of failure returns nil followed by error code.
+
+release_interface(dev_handle, interface)
+	interface is a number
+	Returns true if success. In case of failure returns nil followed by error code.
+		
+control_msg(dev_handle,requesttype,request,value,index,bytes,timeout)
+	requesttype,request,value,index and timeout are numbers
+	bytes is a string
+	Returns a number if success. In case of failure returns nil followed by error code.
+
+
+get_string_simple(dev_handle,index,buflen)
+	index is a number
+	buflen is a number, if missing or 0 defaults to 255
+	Returns a string. In case of failure returns nil followed by error code.
+
+TODO: usb_get_string
+
+get_descriptor(dev_handle,type,index,size)
+	type and index are numbers (0..255)
+	size is a number, if missing or 0 defaults to 255
+	Returns a string. In case of failure returns nil followed by error code.
+	
+get_descriptor_by_endpoint(dev_handle,ep,type,index,size)
+	type and index are numbers (0..255)
+	ep is a numbers
+	size is a number, if missing or 0 defaults to 255
+	Returns a string. In case of failure returns nil followed by error code.
+		
+bulk_write(dev_handle,ep,bytes,timeout)
+	ep and timeout are numbers
+	bytes is a string
+	Returns a number. In case of failure returns nil followed by error code.
+
+bulk_read(dev_handle,ep,size,timeout)
+	ep, size and timeout are numbers
+	Returns a string. In case of failure returns nil followed by error code.
+	
+interrupt_write(dev_handle,ep,bytes,timeout)
+	ep and timeout are numbers
+	bytes is a string
+	Returns a number. In case of failure returns nil followed by error code.
+
+interrupt_read(dev_handle,ep,size,timeout)
+	ep, size and timeout are numbers
+	Returns a string. In case of failure returns nil followed by error code.
+ 
+ 
+Data
+====
+
+The following functions access data in libusb.h structs. For reference, 
+see http://libusb.sourceforge.net/api-1.0/annotated.html . 
+device_descriptor, 
+device_config and endpoint_descriptor return a table that maps the name of the 
+attribute to it's value. 
+interface_alt_settings returns an array of tables (a table for each alternative), 
+where each table maps the name of the attribute to it's value.
+Most of these values are numbers, except the "extra"'s, which are strings, and 
+"endpoint" and "interface" which are handlers.   
+
+device_descriptor(device)
+
+device_config(device)
+
+interface_alt_settings(interface)
+
+endpoint_descriptor(endpoint_handler)
+
+
+Constants
+=========
+
+The library exports the #defined constants from libusb.h . For your convenience. 
+
+
+===
+END

@@ -1,0 +1,15 @@
+--- This file is part of LuaDist project
+
+name = "lualibusb"
+version = "0.4"
+
+url = "http://luaforge.net/projects/lualibusb/"
+author = "Andrés Aguirre, Jorge Visca"
+desc = "Lua libusb binding."
+license = "MIT"
+maintainer = "Peter Drahoš"
+
+depends = {
+	"lua ~> 5.1",
+	"libusb >= 0.1.12"
+}
